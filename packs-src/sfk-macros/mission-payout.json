@@ -1,0 +1,20 @@
+{
+  "_id": "xkxwnQrS7RPeMOkI",
+  "_key": "!macros!xkxwnQrS7RPeMOkI",
+  "name": "Mission Payout",
+  "type": "script",
+  "author": null,
+  "img": "icons/svg/coins.svg",
+  "scope": "global",
+  "command": "// SFK \u2014 Starfinder Foundry Kit\nawait SFK.economy.payoutDialog();",
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "sfk": {
+      "macro": true
+    }
+  }
+}

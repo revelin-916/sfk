@@ -1,0 +1,26 @@
+<div class="sfk-scroll">
+  {{#if isGM}}
+    <div class="sfk-toolbar">
+      <button type="button" data-action="add"><i class="fa-solid fa-plus"></i> {{localize "SFK.Faction.Add"}}</button>
+      <button type="button" data-action="tiers"><i class="fa-solid fa-layer-group"></i> {{localize "SFK.Faction.EditTiers"}}</button>
+    </div>
+  {{/if}}
+  {{#each factions as |f|}}
+    <section class="sfk-panel sfk-faction">
+      <div class="sfk-row">
+        <input type="text" class="sfk-title-input sfk-grow" name="list.{{f.index}}.name" value="{{f.name}}" {{disabled @root.ro}}>
+        <span class="sfk-tier">{{f.tier}}</span>
+        <span class="sfk-rep">{{f.value}}</span>
+        {{#if @root.isGM}}
+          <button type="button" data-action="down" data-id="{{f.id}}" class="sfk-icon-btn"><i class="fa-solid fa-minus"></i></button>
+          <button type="button" data-action="up" data-id="{{f.id}}" class="sfk-icon-btn"><i class="fa-solid fa-plus"></i></button>
+          <label class="sfk-check" data-tooltip="{{localize 'SFK.Faction.SecretHint'}}"><input type="checkbox" name="list.{{f.index}}.secret" {{checked f.secret}}> <i class="fa-solid fa-eye-slash"></i></label>
+          <button type="button" data-action="remove" data-id="{{f.id}}" class="sfk-icon-btn sfk-danger"><i class="fa-solid fa-trash"></i></button>
+        {{/if}}
+      </div>
+      <textarea name="list.{{f.index}}.notes" rows="2" {{disabled @root.ro}} placeholder="{{localize 'SFK.Faction.Notes'}}">{{f.notes}}</textarea>
+    </section>
+  {{else}}
+    <p class="sfk-dim">{{localize "SFK.Faction.Empty"}}</p>
+  {{/each}}
+</div>

@@ -1,0 +1,20 @@
+{
+  "_id": "ecQoXsf2o3gyrDO1",
+  "_key": "!macros!ecQoXsf2o3gyrDO1",
+  "name": "Infosphere: Edit Headlines",
+  "type": "script",
+  "author": null,
+  "img": "icons/svg/scroll.svg",
+  "scope": "global",
+  "command": "// SFK \u2014 Starfinder Foundry Kit\nif (!game.user.isGM) return ui.notifications.warn(\"GM only\");\nawait SFK.infosphere.editHeadlines();",
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "sfk": {
+      "macro": true
+    }
+  }
+}

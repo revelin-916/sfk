@@ -1,0 +1,18 @@
+{
+  "name": "sfk",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "SFK — Starfinder Foundry Kit (Foundry VTT module for the sf2e system)",
+  "scripts": {
+    "lint": "eslint scripts tests",
+    "test": "node --test tests/*.test.mjs",
+    "build:packs": "node tools/build-packs.mjs",
+    "package": "npm run build:packs && node tools/package.mjs"
+  },
+  "devDependencies": {
+    "@foundryvtt/foundryvtt-cli": "^1.0.3",
+    "eslint": "^9.0.0",
+    "globals": "^15.0.0"
+  }
+}

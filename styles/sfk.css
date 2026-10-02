@@ -1,0 +1,162 @@
+/* SFK — Starfinder Foundry Kit */
+:root {
+  --sfk-bg: #0d1520;
+  --sfk-panel: #132233;
+  --sfk-edge: #24425f;
+  --sfk-text: #d8e6f3;
+  --sfk-dim: #8aa1b8;
+  --sfk-accent: #3ad0ff;
+  --sfk-warn: #ffb547;
+  --sfk-alert: #ff4d5e;
+  --sfk-good: #4fe39a;
+  --sfk-ai: #b48cff;
+  --sfk-econ: #f2d06b;
+  --sfk-photon: #ff8a2a;
+  --sfk-graviton: #7a3cff;
+  --sfk-font: "Signika", "Roboto Condensed", sans-serif;
+}
+
+/* ------------------------------- Chat cards ------------------------------- */
+.sfk-card {
+  --sfk-c: var(--sfk-accent);
+  background: linear-gradient(160deg, var(--sfk-bg), var(--sfk-panel));
+  border: 1px solid var(--sfk-edge);
+  border-left: 3px solid var(--sfk-c);
+  border-radius: 4px;
+  color: var(--sfk-text);
+  font-family: var(--sfk-font);
+  overflow: hidden;
+}
+.sfk-card.sfk-warn { --sfk-c: var(--sfk-warn); }
+.sfk-card.sfk-alert { --sfk-c: var(--sfk-alert); }
+.sfk-card.sfk-ai { --sfk-c: var(--sfk-ai); }
+.sfk-card.sfk-econ { --sfk-c: var(--sfk-econ); }
+.sfk-card.sfk-ship { --sfk-c: var(--sfk-accent); }
+.sfk-card.sfk-attune-photon { --sfk-c: var(--sfk-photon); box-shadow: inset 0 0 18px rgba(255, 138, 42, 0.25); }
+.sfk-card.sfk-attune-graviton { --sfk-c: var(--sfk-graviton); box-shadow: inset 0 0 18px rgba(122, 60, 255, 0.3); }
+
+.sfk-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.45em;
+  padding: 0.35em 0.6em;
+  background: rgba(58, 208, 255, 0.07);
+  border-bottom: 1px solid var(--sfk-edge);
+  color: var(--sfk-c);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.85em;
+}
+.sfk-card-header .sfk-stamp { margin-left: auto; color: var(--sfk-dim); font-family: monospace; font-weight: 400; }
+.sfk-card-body { padding: 0.45em 0.65em; font-size: 0.95em; }
+.sfk-card-body p { margin: 0.25em 0; }
+.sfk-card-body ul { margin: 0.25em 0; padding-left: 1.2em; }
+.sfk-card-buttons { display: flex; flex-wrap: wrap; gap: 0.3em; padding: 0 0.6em 0.5em; }
+.sfk-card-buttons button {
+  flex: 1 1 auto;
+  background: rgba(58, 208, 255, 0.12);
+  border: 1px solid var(--sfk-c);
+  color: var(--sfk-text);
+  border-radius: 3px;
+  line-height: 1.8;
+}
+.sfk-card-buttons button:hover { background: rgba(58, 208, 255, 0.28); }
+.sfk-emph { color: var(--sfk-c); font-weight: 700; }
+.sfk-hint { color: var(--sfk-dim); font-style: italic; font-size: 0.9em; }
+.sfk-degree { font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+.sfk-degree.sfk-criticalSuccess { color: var(--sfk-good); }
+.sfk-degree.sfk-success { color: var(--sfk-accent); }
+.sfk-degree.sfk-failure { color: var(--sfk-warn); }
+.sfk-degree.sfk-criticalFailure { color: var(--sfk-alert); }
+
+/* Transmissions */
+.sfk-transmission .sfk-card-body { font-family: "Courier New", monospace; position: relative; }
+.sfk-transmission .sfk-card-body::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, transparent 0 2px, rgba(58, 208, 255, 0.05) 2px 3px);
+  pointer-events: none;
+}
+.sfk-typewriter { animation: sfk-reveal 1.2s steps(40, end) both; overflow: hidden; }
+@keyframes sfk-reveal { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+.sfk-card.sfk-alert.sfk-transmission { animation: sfk-pulse 1.4s ease-in-out 2; }
+@keyframes sfk-pulse { 50% { box-shadow: 0 0 14px rgba(255, 77, 94, 0.65); } }
+.sfk-ticker { font-style: italic; }
+@media (prefers-reduced-motion: reduce) {
+  .sfk-typewriter, .sfk-card.sfk-alert.sfk-transmission { animation: none; }
+}
+
+/* ------------------------------- Applications ------------------------------ */
+.sfk-app .window-content { background: var(--sfk-bg); color: var(--sfk-text); padding: 0; }
+.sfk-app .sfk-scroll { overflow-y: auto; height: 100%; padding: 0.6em; display: flex; flex-direction: column; gap: 0.6em; }
+.sfk-app input, .sfk-app select, .sfk-app textarea {
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--sfk-text);
+  border: 1px solid var(--sfk-edge);
+}
+.sfk-app textarea { width: 100%; resize: vertical; }
+.sfk-app button { color: var(--sfk-text); background: rgba(58, 208, 255, 0.1); border: 1px solid var(--sfk-edge); }
+.sfk-app button:hover { border-color: var(--sfk-accent); }
+.sfk-app .sfk-danger { border-color: rgba(255, 77, 94, 0.5); }
+.sfk-app .sfk-danger:hover { background: rgba(255, 77, 94, 0.2); }
+.sfk-panel { background: var(--sfk-panel); border: 1px solid var(--sfk-edge); border-radius: 4px; padding: 0.6em; display: flex; flex-direction: column; gap: 0.45em; }
+.sfk-row { display: flex; align-items: flex-end; gap: 0.5em; flex-wrap: wrap; }
+.sfk-row label { display: flex; flex-direction: column; font-size: 0.8em; color: var(--sfk-dim); gap: 0.15em; }
+.sfk-grow { flex: 1 1 12em; }
+.sfk-num input { width: 4.5em; }
+.sfk-toolbar { display: flex; gap: 0.35em; flex-wrap: wrap; }
+.sfk-toolbar button { flex: 1 1 auto; }
+.sfk-icon-btn { width: 2em; height: 2em; line-height: 1; flex: 0 0 auto; padding: 0; }
+.sfk-subhead { display: flex; align-items: center; justify-content: space-between; margin: 0.3em 0 0; border-bottom: 1px solid var(--sfk-edge); color: var(--sfk-accent); font-size: 1em; }
+.sfk-title-input { font-size: 1.15em; font-weight: 700; background: transparent !important; border: none !important; color: var(--sfk-text); }
+.sfk-dim { color: var(--sfk-dim); }
+.sfk-check { display: inline-flex !important; flex-direction: row !important; align-items: center; gap: 0.25em; }
+
+/* Starship scene */
+.sfk-round { margin-left: auto; text-align: center; border: 1px solid var(--sfk-accent); border-radius: 4px; padding: 0.2em 0.8em; }
+.sfk-round-label { display: block; font-size: 0.7em; color: var(--sfk-dim); text-transform: uppercase; }
+.sfk-round-value { font-size: 1.6em; font-weight: 700; color: var(--sfk-accent); }
+.sfk-vp { display: flex; align-items: center; gap: 0.3em; }
+.sfk-vp input { width: 3.5em; }
+.sfk-vp-value { font-size: 1.2em; font-weight: 700; color: var(--sfk-econ); }
+.sfk-craft-head { display: flex; align-items: center; gap: 0.5em; }
+.sfk-craft-ship { border-left: 3px solid var(--sfk-accent); }
+.sfk-craft-threat { border-left: 3px solid var(--sfk-alert); }
+.sfk-bars { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4em; }
+.sfk-bar { position: relative; height: 1.4em; background: rgba(0, 0, 0, 0.45); border: 1px solid var(--sfk-edge); border-radius: 3px; overflow: hidden; }
+.sfk-bar span { position: absolute; inset: 0 auto 0 0; transition: width 0.4s ease; }
+.sfk-bar-hp span { background: linear-gradient(90deg, #1f7a52, var(--sfk-good)); }
+.sfk-bar-sh span { background: linear-gradient(90deg, #1b5f86, var(--sfk-accent)); box-shadow: 0 0 8px var(--sfk-accent); }
+.sfk-bar label { position: relative; z-index: 1; display: block; text-align: center; font-size: 0.8em; line-height: 1.4em; text-shadow: 0 0 3px #000; }
+.sfk-stat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(5.5em, 1fr)); gap: 0.35em; }
+.sfk-stat-grid label { display: flex; flex-direction: column; font-size: 0.75em; color: var(--sfk-dim); }
+.sfk-damage-row input { width: 6em; }
+.sfk-roles { width: 100%; border-collapse: collapse; font-size: 0.9em; }
+.sfk-roles th { text-align: left; color: var(--sfk-dim); font-weight: 400; font-size: 0.8em; }
+.sfk-roles td { padding: 0.15em 0.2em; }
+.sfk-roles input[type="text"] { width: 100%; }
+.sfk-roles .sfk-dc { width: 3.5em; }
+.sfk-roles .sfk-actions { white-space: nowrap; }
+.sfk-persistent { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.25em; }
+.sfk-persistent li { display: flex; align-items: center; gap: 0.35em; }
+.sfk-persistent li > i { color: var(--sfk-photon); }
+.sfk-persistent input[type="text"] { width: 6em; }
+
+/* Ledger */
+.sfk-balance-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(10em, 1fr)); gap: 0.4em; }
+.sfk-balance { display: flex; flex-direction: column; border: 1px solid var(--sfk-edge); border-radius: 3px; padding: 0.3em 0.5em; }
+.sfk-balance-name { color: var(--sfk-dim); font-size: 0.85em; }
+.sfk-balance-cr { font-size: 1.2em; font-weight: 700; color: var(--sfk-econ); }
+.sfk-ledger-table { width: 100%; border-collapse: collapse; font-size: 0.9em; }
+.sfk-ledger-table th { text-align: left; color: var(--sfk-dim); border-bottom: 1px solid var(--sfk-edge); }
+.sfk-ledger-table td { padding: 0.2em 0.3em; border-bottom: 1px solid rgba(36, 66, 95, 0.4); }
+.sfk-pos { color: var(--sfk-good); }
+.sfk-neg { color: var(--sfk-alert); }
+.sfk-icon-link { color: var(--sfk-dim); margin-left: 0.3em; }
+
+/* Factions */
+.sfk-tier { padding: 0.1em 0.5em; border: 1px solid var(--sfk-econ); border-radius: 3px; color: var(--sfk-econ); font-size: 0.85em; }
+.sfk-rep { font-weight: 700; font-size: 1.2em; min-width: 2em; text-align: center; }
+.sfk-checklist { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.25em; }

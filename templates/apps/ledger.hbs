@@ -1,0 +1,32 @@
+<div class="sfk-scroll">
+  <section class="sfk-panel">
+    <h3 class="sfk-subhead">{{localize "SFK.Ledger.Balances"}}</h3>
+    <div class="sfk-balance-grid">
+      {{#each totals}}
+        <div class="sfk-balance"><span class="sfk-balance-name">{{name}}</span><span class="sfk-balance-cr">{{credits}} cr</span>{{#if upb}}<span class="sfk-balance-upb">{{upb}} UPB</span>{{/if}}</div>
+      {{/each}}
+    </div>
+    {{#if isGM}}
+      <div class="sfk-toolbar">
+        <button type="button" data-action="exportCsv"><i class="fa-solid fa-file-csv"></i> {{localize "SFK.Ledger.Export"}}</button>
+        <button type="button" data-action="clear" class="sfk-danger"><i class="fa-solid fa-trash"></i> {{localize "SFK.Ledger.Clear"}}</button>
+      </div>
+    {{/if}}
+  </section>
+  <table class="sfk-ledger-table">
+    <thead><tr><th>{{localize "SFK.Ledger.When"}}</th><th>{{localize "SFK.Ledger.Who"}}</th><th>Δ cr</th><th>{{localize "SFK.Ledger.Balance"}}</th><th>{{localize "SFK.Ledger.Reason"}}</th></tr></thead>
+    <tbody>
+      {{#each rows}}
+        <tr>
+          <td class="sfk-dim">{{when}}</td>
+          <td>{{actorName}}</td>
+          <td class="{{cls}}">{{signed}}{{#if upb}} <span class="sfk-dim">({{upb}} UPB)</span>{{/if}}</td>
+          <td>{{balance}}</td>
+          <td>{{reason}}{{#if @root.isGM}} <a data-action="editReason" data-id="{{id}}" class="sfk-icon-link"><i class="fa-solid fa-pen"></i></a>{{/if}}</td>
+        </tr>
+      {{else}}
+        <tr><td colspan="5" class="sfk-dim">{{localize "SFK.Ledger.Empty"}}</td></tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

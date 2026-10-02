@@ -1,0 +1,20 @@
+{
+  "_id": "nPFz46PDjqipVJIq",
+  "_key": "!macros!nPFz46PDjqipVJIq",
+  "name": "Glitching: Roll for Selected",
+  "type": "script",
+  "author": null,
+  "img": "icons/svg/lightning.svg",
+  "scope": "global",
+  "command": "// SFK \u2014 Starfinder Foundry Kit\nfor (const token of canvas.tokens.controlled) {\n  if (token.actor?.hasCondition(\"glitching\")) await SFK.combat.rollGlitching(token.actor);\n}",
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "sfk": {
+      "macro": true
+    }
+  }
+}

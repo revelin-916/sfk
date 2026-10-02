@@ -1,0 +1,20 @@
+{
+  "_id": "do0cZuzren68K4Tu",
+  "_key": "!macros!do0cZuzren68K4Tu",
+  "name": "Faction Standing",
+  "type": "script",
+  "author": null,
+  "img": "icons/svg/castle.svg",
+  "scope": "global",
+  "command": "// SFK \u2014 Starfinder Foundry Kit\nSFK.economy.openFactions();",
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "sfk": {
+      "macro": true
+    }
+  }
+}

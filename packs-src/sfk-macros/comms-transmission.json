@@ -1,0 +1,20 @@
+{
+  "_id": "9Wvgfygw2wMqZcUD",
+  "_key": "!macros!9Wvgfygw2wMqZcUD",
+  "name": "Comms Transmission",
+  "type": "script",
+  "author": null,
+  "img": "icons/svg/sound.svg",
+  "scope": "global",
+  "command": "// SFK \u2014 Starfinder Foundry Kit\nawait SFK.comms.prompt();",
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "sfk": {
+      "macro": true
+    }
+  }
+}

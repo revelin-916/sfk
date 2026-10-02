@@ -1,0 +1,20 @@
+{
+  "_id": "UpkDyr7OSJoRu1XX",
+  "_key": "!macros!UpkDyr7OSJoRu1XX",
+  "name": "Credits Ledger",
+  "type": "script",
+  "author": null,
+  "img": "icons/svg/book.svg",
+  "scope": "global",
+  "command": "// SFK \u2014 Starfinder Foundry Kit\nSFK.economy.openLedger();",
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "sfk": {
+      "macro": true
+    }
+  }
+}

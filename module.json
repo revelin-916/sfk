@@ -1,0 +1,31 @@
+{
+  "id": "sfk",
+  "title": "SFK — Starfinder Foundry Kit",
+  "description": "Automation and immersion for the Starfinder Second Edition system: Area Fire / Auto-Fire ammunition and targeting, Suppressing Fire, Glitching and Untethered handling, Solarian attunement presentation, a GM Core cinematic Starship Scene tracker, comms and infosphere flavor, a credits ledger, mission payouts, and faction standing.",
+  "version": "0.1.0",
+  "authors": [{ "name": "Rev (Darren Woodard)" }],
+  "license": "LICENSE",
+  "readme": "README.md",
+  "changelog": "CHANGELOG.md",
+  "compatibility": { "minimum": "14", "verified": "14" },
+  "relationships": {
+    "systems": [{ "id": "sf2e", "type": "system", "compatibility": { "minimum": "1.5.0" } }]
+  },
+  "esmodules": ["scripts/main.mjs"],
+  "styles": ["styles/sfk.css"],
+  "languages": [{ "lang": "en", "name": "English", "path": "lang/en.json" }],
+  "packs": [
+    {
+      "name": "sfk-macros",
+      "label": "SFK Macros",
+      "path": "packs/sfk-macros",
+      "type": "Macro",
+      "ownership": { "PLAYER": "OBSERVER", "ASSISTANT": "OWNER" }
+    }
+  ],
+  "packFolders": [{ "name": "SFK — Starfinder Foundry Kit", "color": "#0d1520", "packs": ["sfk-macros"] }],
+  "url": "https://github.com/YOUR-GITHUB-USER/sfk",
+  "manifest": "https://github.com/YOUR-GITHUB-USER/sfk/releases/latest/download/module.json",
+  "download": "https://github.com/YOUR-GITHUB-USER/sfk/releases/download/v0.1.0/sfk.zip",
+  "bugs": "https://github.com/YOUR-GITHUB-USER/sfk/issues"
+}

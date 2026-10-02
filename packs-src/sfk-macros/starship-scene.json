@@ -1,0 +1,20 @@
+{
+  "_id": "OhbVrpoiVgRV5IfL",
+  "_key": "!macros!OhbVrpoiVgRV5IfL",
+  "name": "Starship Scene",
+  "type": "script",
+  "author": null,
+  "img": "icons/svg/target.svg",
+  "scope": "global",
+  "command": "// SFK \u2014 Starfinder Foundry Kit\nSFK.starship.open();",
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "sfk": {
+      "macro": true
+    }
+  }
+}

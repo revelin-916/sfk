@@ -1,0 +1,20 @@
+{
+  "_id": "oCLrZ3aWZkSBvrjn",
+  "_key": "!macros!oCLrZ3aWZkSBvrjn",
+  "name": "Starship: Roll Role Initiative",
+  "type": "script",
+  "author": null,
+  "img": "icons/svg/d20-grey.svg",
+  "scope": "global",
+  "command": "// SFK \u2014 Starfinder Foundry Kit\nif (!game.user.isGM) return ui.notifications.warn(\"GM only\");\nawait SFK.starship.rollInitiative();",
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "sfk": {
+      "macro": true
+    }
+  }
+}

@@ -1,0 +1,36 @@
+<div class="sfk-bars">
+  <div class="sfk-bar sfk-bar-hp"><span style="width:{{craft.hpPct}}%"></span><label>HP {{craft.hp.value}} / {{craft.hp.max}}</label></div>
+  <div class="sfk-bar sfk-bar-sh"><span style="width:{{craft.shPct}}%"></span><label>{{localize "SFK.Ship.Shields"}} {{craft.shields.value}} / {{craft.shields.max}} ({{craft.shields.regen}})</label></div>
+</div>
+<div class="sfk-stat-grid">
+  <label>AC<input type="number" name="{{prefix}}.ac" value="{{craft.ac}}" {{disabled ro}}></label>
+  <label>Fort<input type="number" name="{{prefix}}.fort" value="{{craft.fort}}" {{disabled ro}}></label>
+  <label>Ref<input type="number" name="{{prefix}}.ref" value="{{craft.ref}}" {{disabled ro}}></label>
+  <label>Will<input type="number" name="{{prefix}}.will" value="{{craft.will}}" {{disabled ro}}></label>
+  <label>HP<input type="number" name="{{prefix}}.hp.value" value="{{craft.hp.value}}" min="0" {{disabled ro}}></label>
+  <label>{{localize "SFK.Ship.Max"}}<input type="number" name="{{prefix}}.hp.max" value="{{craft.hp.max}}" min="0" {{disabled ro}}></label>
+  <label>{{localize "SFK.Ship.Shields"}}<input type="number" name="{{prefix}}.shields.value" value="{{craft.shields.value}}" min="0" {{disabled ro}}></label>
+  <label>{{localize "SFK.Ship.Max"}}<input type="number" name="{{prefix}}.shields.max" value="{{craft.shields.max}}" min="0" {{disabled ro}}></label>
+  <label>{{localize "SFK.Ship.Regen"}}<input type="number" name="{{prefix}}.shields.regen" value="{{craft.shields.regen}}" min="0" {{disabled ro}}></label>
+</div>
+{{#if isGM}}
+  <div class="sfk-row sfk-damage-row">
+    <input type="number" data-dmg="{{key}}" min="0" placeholder="{{localize 'SFK.Ship.Amount'}}">
+    <button type="button" data-action="damage" data-key="{{key}}"><i class="fa-solid fa-explosion"></i> {{localize "SFK.Ship.Damage"}}</button>
+    <button type="button" data-action="heal" data-key="{{key}}"><i class="fa-solid fa-screwdriver-wrench"></i> {{localize "SFK.Ship.Repair"}}</button>
+    <button type="button" data-action="addPersistent" data-key="{{key}}"><i class="fa-solid fa-fire"></i> {{localize "SFK.Ship.AddPersistent"}}</button>
+  </div>
+{{/if}}
+{{#if craft.persistent.length}}
+  <ul class="sfk-persistent">
+    {{#each craft.persistent as |p j|}}
+      <li>
+        <i class="fa-solid fa-fire-flame-curved"></i>
+        <input type="text" name="{{../prefix}}.persistent.{{j}}.formula" value="{{p.formula}}" {{disabled ../ro}}>
+        <input type="text" name="{{../prefix}}.persistent.{{j}}.type" value="{{p.type}}" {{disabled ../ro}}>
+        <label class="sfk-check"><input type="checkbox" name="{{../prefix}}.persistent.{{j}}.assisted" {{checked p.assisted}} {{disabled ../ro}}> {{localize "SFK.Ship.Assisted"}}</label>
+        {{#if ../isGM}}<button type="button" data-action="removePersistent" data-key="{{../key}}" data-pid="{{p.id}}" class="sfk-icon-btn sfk-danger"><i class="fa-solid fa-xmark"></i></button>{{/if}}
+      </li>
+    {{/each}}
+  </ul>
+{{/if}}
