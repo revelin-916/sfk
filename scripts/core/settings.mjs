@@ -17,6 +17,13 @@ export function registerSettings(apps) {
         choices: { auto: "SFK.Settings.Choice.Auto", prompt: "SFK.Settings.Choice.Prompt", off: "SFK.Settings.Choice.Off" },
     });
     reg("volleyAutoTarget", { scope: "client", config: true, type: Boolean, default: true });
+    reg("volleyAutoClear", {
+        scope: "world",
+        config: true,
+        type: String,
+        default: "endTurn",
+        choices: { endTurn: "SFK.Settings.Choice.EndTurn", off: "SFK.Settings.Choice.Off" },
+    });
     reg("suppressionAuto", { scope: "world", config: true, type: Boolean, default: true });
     reg("glitchingAuto", {
         scope: "world",

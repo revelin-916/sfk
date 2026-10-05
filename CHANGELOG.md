@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.1 — 2026-10-05
+
+- Fix: Area Fire / Auto-Fire areas could be left on the map with no obvious way to remove them (the system's
+  area-attack chat card has no clear button, unlike spell cards). SFK now adds a **Clear area** button to that card
+  and to the "Creatures in area" card.
+- New setting **Clear Area Fire / Auto-Fire areas** (default: at the end of the attacker's turn).
+- New macro **Clear Area Attack Templates** and API `SFK.combat.clearAreas()`.
+
 ## 0.2.0 — 2026-10-04
 
 Content-pack support and a scripted starship engine.

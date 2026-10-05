@@ -148,6 +148,7 @@ async function onAreaPlaced(region, message) {
             gate: "gm",
             data: { region: region.uuid, attacker: attacker?.uuid ?? "" },
         },
+        { action: "volley-clear", label: L("Volley.ClearArea"), icon: "fa-solid fa-eraser", gate: "owner", data: { region: region.uuid } },
     ];
 
     if (ctx.type === "auto-fire" && weapon) {
@@ -165,7 +166,73 @@ async function onAreaPlaced(region, message) {
     );
 }
 
+/* ------------------------------- Clearing areas ------------------------------- */
+
+/** Effect-area regions on a scene spawned from a given chat message (or any area-attack message). */
+export function areaRegions({ scene = canvas.scene, messageId = null, actorUuid = null, ownedOnly = true } = {}) {
+    if (!scene) return [];
+    return scene.regions.filter((r) => {
+        const f = sysFlags(r);
+        if (!f.messageId || !f.areaShape) return false;
+        if (messageId && f.messageId !== messageId) return false;
+        if (actorUuid && f.origin?.actor !== actorUuid) return false;
+        if (!messageId) {
+            const msg = game.messages.get(f.messageId);
+            if (msg && !areaContext(msg)) return false; // leave spell templates alone unless asked by message
+        }
+        return ownedOnly ? r.isOwner : true;
+    });
+}
+
+/** Delete area-attack regions. With no filters, clears every Area Fire / Auto-Fire area on the current scene you own. */
+export async function clearAreas(filters = {}) {
+    const regions = areaRegions(filters);
+    if (!regions.length) return 0;
+    const scene = regions[0].parent;
+    await scene.deleteEmbeddedDocuments("Region", regions.map((r) => r.id));
+    return regions.length;
+}
+
+/** Add a "Clear area" button to the system's Area Fire / Auto-Fire chat card. */
+function injectClearButton(message, html) {
+    if (!areaContext(message)) return;
+    const buttons = html.querySelector(".message-buttons");
+    if (!buttons || buttons.querySelector("[data-sfk-clear-area]")) return;
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.dataset.sfkClearArea = message.id;
+    btn.innerHTML = `<i class="fa-solid fa-eraser"></i> ${L("Volley.ClearArea")}`;
+    btn.hidden = !areaRegions({ messageId: message.id }).length;
+    btn.addEventListener("click", async (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        const n = await clearAreas({ messageId: message.id });
+        if (!n) ui.notifications.warn(L("Volley.NothingToClear"));
+        btn.hidden = true;
+    });
+    buttons.append(btn);
+}
+
+/** Show/hide clear buttons when areas appear or disappear. */
+function refreshClearButtons(region) {
+    const messageId = sysFlags(region).messageId;
+    if (!messageId) return;
+    for (const btn of document.querySelectorAll(`[data-sfk-clear-area="${messageId}"]`)) {
+        btn.hidden = !areaRegions({ messageId }).length;
+    }
+}
+
 export function initVolley() {
+    Hooks.on("renderChatMessageHTML", (message, html) => injectClearButton(message, html));
+    Hooks.on("deleteRegion", (region) => refreshClearButtons(region));
+
+    // Optional: clear a combatant's Area Fire / Auto-Fire areas when their turn ends
+    Hooks.on("pf2e.endTurn", async (combatant) => {
+        if (!game.users.activeGM?.isSelf || setting("volleyAutoClear") !== "endTurn" || !combatant.actor) return;
+        const scene = game.scenes.get(combatant.sceneId) ?? canvas.scene;
+        await clearAreas({ scene, actorUuid: combatant.actor.uuid, ownedOnly: false }).catch((err) => warn("Auto-clear failed", err));
+    });
+
     // Record volleys everywhere; spend Area Fire ammo on the author's client
     Hooks.on("createChatMessage", async (message, _opts, userId) => {
         const ctx = areaContext(message);
@@ -208,6 +275,13 @@ export function initVolley() {
         canvas.tokens.releaseAll();
         for (const t of tokens) t.object?.control({ releaseOthers: false });
         ui.notifications.info(L("Volley.Selected", { n: tokens.length }));
+    });
+
+    registerCardAction("volley-clear", async (_message, button) => {
+        const region = await fromUuid(button.dataset.region);
+        if (!region) return ui.notifications.warn(L("Volley.NothingToClear"));
+        if (!region.isOwner) return ui.notifications.warn(L("Notify.NotOwner"));
+        await region.delete();
     });
 }
 

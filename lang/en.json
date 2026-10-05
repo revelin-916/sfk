@@ -28,7 +28,9 @@
       "NoTargets": "No creatures inside the area.",
       "SelectButton": "Select these tokens",
       "Selected": "Selected {n} token(s) — use the card's save button to roll their saves.",
-      "RegionGone": "That area is no longer on the current scene."
+      "RegionGone": "That area is no longer on the current scene.",
+      "ClearArea": "Clear area",
+      "NothingToClear": "No area to clear (already removed, or you don't own it)."
     },
     "Suppress": {
       "Title": "Suppressing Fire",
@@ -212,7 +214,8 @@
       "Choice": {
         "Auto": "Automatic",
         "Prompt": "Prompt with a button",
-        "Off": "Off"
+        "Off": "Off",
+        "EndTurn": "At the end of the attacker's turn"
       },
       "volleyAmmo": {
         "Name": "Area Fire / Auto-Fire ammunition",
@@ -269,6 +272,10 @@
       "ledgerEnabled": {
         "Name": "Credits ledger",
         "Hint": "Log every change to party characters' credits and UPBs."
+      },
+      "volleyAutoClear": {
+        "Name": "Clear Area Fire / Auto-Fire areas",
+        "Hint": "Area attacks are instantaneous. Remove their placed areas automatically when the attacker's turn ends. A Clear area button is always added to the attack's chat card."
       }
     },
     "Engine": {

@@ -1,0 +1,20 @@
+{
+  "_id": "RL9QmZHgJ3I8NHM2",
+  "_key": "!macros!RL9QmZHgJ3I8NHM2",
+  "name": "Clear Area Attack Templates",
+  "type": "script",
+  "author": null,
+  "img": "icons/svg/cancel.svg",
+  "scope": "global",
+  "command": "// SFK \u2014 Starfinder Foundry Kit\n// GM: clears every Area Fire / Auto-Fire area on this scene. Players: only areas they placed.\nconst n = await SFK.combat.clearAreas({ ownedOnly: !game.user.isGM });\nui.notifications.info(`Cleared ${n} area(s).`);",
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "sfk": {
+      "macro": true
+    }
+  }
+}

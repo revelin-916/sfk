@@ -2,7 +2,7 @@
   "id": "sfk",
   "title": "SFK — Starfinder Foundry Kit",
   "description": "Automation and immersion for the Starfinder Second Edition system: Area Fire / Auto-Fire ammunition and targeting, Suppressing Fire, Glitching and Untethered handling, Solarian attunement presentation, a GM Core cinematic Starship Scene tracker, comms and infosphere flavor, a credits ledger, mission payouts, and faction standing.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "authors": [{ "name": "Rev (Darren Woodard)" }],
   "license": "LICENSE",
   "readme": "README.md",
@@ -26,6 +26,6 @@
   "packFolders": [{ "name": "SFK — Starfinder Foundry Kit", "color": "#0d1520", "packs": ["sfk-macros"] }],
   "url": "https://github.com/revelin-916/sfk",
   "manifest": "https://github.com/revelin-916/sfk/releases/latest/download/module.json",
-  "download": "https://github.com/revelin-916/sfk/releases/download/v0.2.0/sfk.zip",
+  "download": "https://github.com/revelin-916/sfk/releases/download/v0.2.1/sfk.zip",
   "bugs": "https://github.com/revelin-916/sfk/issues"
 }

@@ -7,7 +7,7 @@ import { log, warn } from "./core/foundry.mjs";
 import { registerSettings } from "./core/settings.mjs";
 import { initChat } from "./core/chat.mjs";
 
-import { initVolley } from "./combat/volley.mjs";
+import { initVolley, clearAreas } from "./combat/volley.mjs";
 import { initSuppression } from "./combat/suppression.mjs";
 import { initConditions, rollGlitching } from "./combat/conditions.mjs";
 import { initAmmoWatch } from "./combat/ammo-watch.mjs";
@@ -26,7 +26,7 @@ import { FactionsApp, adjust as adjustFaction, getFactions } from "./economy/fac
 
 const api = {
     version: null,
-    combat: { rollGlitching, getAttunement },
+    combat: { rollGlitching, getAttunement, clearAreas },
     starship: {
         open: () => StarshipSceneApp.open(),
         getState: starship.getState,
