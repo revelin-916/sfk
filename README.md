@@ -91,7 +91,7 @@ See `tests/fixtures/sample-preset.mjs` for the full preset shape. A pack that co
 ## Install (manifest)
 
 After you publish a GitHub release (see below), install from this manifest URL:
-`https://github.com/YOUR-GITHUB-USER/sfk/releases/latest/download/module.json`
+`https://github.com/revelin-916/sfk/releases/latest/download/module.json`
 
 ## Macros (compendium: SFK Macros)
 
@@ -119,7 +119,7 @@ npm run package       # build packs + dist/sfk.zip
 ```
 
 **Releasing:**
-1. Replace `YOUR-GITHUB-USER` in `module.json`.
+1. Replace `revelin-916` in `module.json`.
 2. Push the repo.
 3. Publish a GitHub release tagged `vX.Y.Z`.
 

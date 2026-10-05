@@ -18,7 +18,7 @@ Unzip `sfk-v0.2.0-repo.zip` into your Foundry data folder so the result is:
 To find FoundryData, go to Foundry's **Setup → Configuration → User Data Path**. The zip already contains the git history (`.git`), so the folder is a ready-made repo. Foundry ignores the extra dev files.
 
 ## 3. Point the manifest at your account
-In `module.json`, replace all 4 occurrences of `YOUR-GITHUB-USER` with your GitHub username.
+In `module.json`, replace all 4 occurrences of `revelin-916` with your GitHub username.
 
 ## 4. Push
 Open a terminal in that folder (in Explorer, Shift+right-click → *Open in Terminal*):
