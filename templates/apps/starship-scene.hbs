@@ -17,7 +17,10 @@
       <label>{{localize "SFK.Ship.Victory"}}
         <select name="victory.mode" {{disabled ro}}>{{selectOptions victoryModes selected=state.victory.mode}}</select>
       </label>
-      {{#if (eq state.victory.mode "vp")}}
+      {{#if showVP}}
+        <label class="sfk-num">{{localize "SFK.Ship.VPLabel"}}
+          <input type="text" name="victory.vpLabel" value="{{state.victory.vpLabel}}" placeholder="{{localize 'SFK.Ship.VictoryVP'}}" {{disabled ro}} style="width:9em">
+        </label>
         <div class="sfk-vp">
           {{#if isGM}}<button type="button" data-action="vpDown" class="sfk-icon-btn"><i class="fa-solid fa-minus"></i></button>{{/if}}
           <span class="sfk-vp-value">{{state.victory.vp}} / </span>
@@ -33,10 +36,26 @@
     </div>
     <textarea name="victory.text" rows="2" {{disabled ro}} placeholder="{{localize 'SFK.Ship.VictoryText'}}">{{state.victory.text}}</textarea>
     {{#if isGM}}
+      <div class="sfk-row">
+        <label class="sfk-grow">{{localize "SFK.Ship.SceneMod"}}
+          <input type="text" name="sceneMod.label" value="{{state.sceneMod.label}}" placeholder="{{localize 'SFK.Ship.SceneModHint'}}">
+        </label>
+        <label class="sfk-num">±<input type="number" name="sceneMod.value" value="{{state.sceneMod.value}}"></label>
+        <label>{{localize "SFK.Ship.ModType"}}<select name="sceneMod.type">{{selectOptions modTypes selected=state.sceneMod.type}}</select></label>
+      </div>
+      <textarea name="objectives" rows="1" placeholder="{{localize 'SFK.Ship.Objectives'}}">{{state.objectives}}</textarea>
+      <textarea name="rewards" rows="1" placeholder="{{localize 'SFK.Ship.Rewards'}}">{{state.rewards}}</textarea>
+    {{else}}
+      {{#if state.sceneMod.value}}<p class="sfk-hint">{{state.sceneMod.label}}: {{state.sceneMod.value}}</p>{{/if}}
+    {{/if}}
+    {{#if isGM}}
       <div class="sfk-toolbar">
         <button type="button" data-action="nextRound"><i class="fa-solid fa-forward"></i> {{localize "SFK.Ship.NextRound"}}</button>
         <button type="button" data-action="initiative"><i class="fa-solid fa-list-ol"></i> {{localize "SFK.Ship.RollInit"}}</button>
         <button type="button" data-action="addThreat"><i class="fa-solid fa-skull"></i> {{localize "SFK.Ship.AddThreat"}}</button>
+        {{#if hasPresets}}<button type="button" data-action="loadPreset"><i class="fa-solid fa-folder-open"></i> {{localize "SFK.Ship.LoadPreset"}}</button>{{/if}}
+        <button type="button" data-action="exportScene"><i class="fa-solid fa-file-export"></i> {{localize "SFK.Ship.Export"}}</button>
+        <button type="button" data-action="importScene"><i class="fa-solid fa-file-import"></i> {{localize "SFK.Ship.Import"}}</button>
         <button type="button" data-action="reset" class="sfk-danger"><i class="fa-solid fa-rotate-left"></i> {{localize "SFK.Ship.Reset"}}</button>
       </div>
     {{/if}}
@@ -47,9 +66,37 @@
     <header class="sfk-craft-head">
       <i class="fa-solid fa-shuttle-space"></i>
       <input type="text" name="ship.name" value="{{ship.name}}" class="sfk-title-input" {{disabled ro}}>
+      {{#if ship.offGuard}}<span class="sfk-badge sfk-badge-warn">{{localize "SFK.Engine.OffGuardShort"}}</span>{{/if}}
+      {{#if isGM}}<button type="button" data-action="toggleOffGuard" data-key="ship" class="sfk-icon-btn" data-tooltip="{{localize 'SFK.Engine.ToggleOffGuard'}}"><i class="fa-solid fa-shield-halved"></i></button>{{/if}}
     </header>
     {{> "modules/sfk/templates/apps/partials/craft-stats.hbs" craft=ship prefix="ship" key="ship" ro=ro isGM=isGM}}
     <textarea name="ship.bonuses" rows="2" {{disabled ro}} placeholder="{{localize 'SFK.Ship.Bonuses'}}">{{ship.bonuses}}</textarea>
+
+    {{#if ship.weapons.length}}
+      <h3 class="sfk-subhead">{{localize "SFK.Engine.Weapons"}}</h3>
+      <div class="sfk-chip-row">
+        {{#each ship.weapons as |w|}}
+          <button type="button" class="sfk-chip" {{#if @root.isGM}}data-action="fireWeapon" data-id="{{w.id}}"{{else}}disabled{{/if}} data-tooltip="{{w.traits}}">
+            <i class="fa-solid fa-crosshairs"></i> {{w.name}} <span class="sfk-dim">{{w.damage}} {{w.damageType}}</span>
+          </button>
+        {{/each}}
+      </div>
+    {{/if}}
+
+    {{#if ship.actions.length}}
+      <h3 class="sfk-subhead">{{localize "SFK.Engine.Actions"}}</h3>
+      <div class="sfk-action-list">
+        {{#each ship.actions as |a|}}
+          <div class="sfk-action">
+            <button type="button" class="sfk-chip" {{#if @root.isGM}}data-action="runAction" data-id="{{a.id}}"{{else}}disabled{{/if}}>
+              <i class="fa-solid fa-gauge-high"></i> {{a.name}}
+            </button>
+            <span class="sfk-dim">({{a.roleLabel}})</span>
+            <span class="sfk-action-text">{{a.text}}</span>
+          </div>
+        {{/each}}
+      </div>
+    {{/if}}
 
     <h3 class="sfk-subhead">{{localize "SFK.Ship.Roles"}}
       {{#if isGM}}<button type="button" data-action="addRole" class="sfk-icon-btn" data-tooltip="{{localize 'SFK.Ship.AddRole'}}"><i class="fa-solid fa-plus"></i></button>{{/if}}
@@ -82,6 +129,8 @@
       <header class="sfk-craft-head">
         <i class="fa-solid fa-skull"></i>
         <input type="text" name="threats.{{t.index}}.name" value="{{t.name}}" class="sfk-title-input" {{disabled @root.ro}}>
+        {{#if t.offGuard}}<span class="sfk-badge sfk-badge-warn">{{localize "SFK.Engine.OffGuardShort"}}</span>{{/if}}
+        {{#if @root.isGM}}<button type="button" data-action="toggleOffGuard" data-key="{{t.id}}" class="sfk-icon-btn" data-tooltip="{{localize 'SFK.Engine.ToggleOffGuard'}}"><i class="fa-solid fa-shield-halved"></i></button>{{/if}}
         {{#if @root.isGM}}<button type="button" data-action="removeThreat" data-key="{{t.id}}" class="sfk-icon-btn sfk-danger"><i class="fa-solid fa-trash"></i></button>{{/if}}
       </header>
       {{#if @root.isGM}}
@@ -91,11 +140,23 @@
           <label class="sfk-num">{{localize "SFK.Ship.InitMod"}}<input type="number" name="threats.{{t.index}}.init.mod" value="{{t.init.mod}}"></label>
         </div>
         <textarea name="threats.{{t.index}}.routine" rows="3" placeholder="{{localize 'SFK.Ship.Routine'}}">{{t.routine}}</textarea>
+        {{#if t.steps.length}}
+          <div class="sfk-chip-row">
+            <button type="button" class="sfk-chip sfk-chip-alert" data-action="runRoutine" data-key="{{t.id}}"><i class="fa-solid fa-play"></i> {{localize "SFK.Engine.RunRoutine"}}</button>
+            {{#each t.steps as |st|}}
+              <button type="button" class="sfk-chip" data-action="runStep" data-key="{{t.id}}" data-step="{{st.id}}"><i class="fa-solid fa-forward-step"></i> {{st.name}}</button>
+            {{/each}}
+          </div>
+        {{/if}}
       {{else}}
-        <div class="sfk-bars">
-          <div class="sfk-bar sfk-bar-hp"><span style="width:{{t.hpPct}}%"></span><label>{{localize "SFK.Ship.Integrity"}}</label></div>
-          <div class="sfk-bar sfk-bar-sh"><span style="width:{{t.shPct}}%"></span><label>{{localize "SFK.Ship.Shields"}}</label></div>
-        </div>
+        {{#if t.hasHP}}
+          <div class="sfk-bars">
+            <div class="sfk-bar sfk-bar-hp"><span style="width:{{t.hpPct}}%"></span><label>{{localize "SFK.Ship.Integrity"}}</label></div>
+            <div class="sfk-bar sfk-bar-sh"><span style="width:{{t.shPct}}%"></span><label>{{localize "SFK.Ship.Shields"}}</label></div>
+          </div>
+        {{else}}
+          <p class="sfk-hint">{{localize "SFK.Engine.Hazard"}}</p>
+        {{/if}}
       {{/if}}
     </section>
   {{/each}}

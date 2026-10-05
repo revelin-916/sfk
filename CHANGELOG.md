@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.2.0 — 2026-10-04
+
+Content-pack support and a scripted starship engine.
+
+- Starship presets: content modules register scenes on the `sfk.registerContent` hook; GM loads them from the
+  tracker (with optional setup choices that apply a scene-wide check modifier). Crew assignments carry over by role.
+- Scene export/import as JSON.
+- Structured starship actions: crew rolls the role's skill vs DC through the system's check pipeline (all modifiers
+  apply), then outcomes apply automatically (points, repairs, clearing persistent damage, flags).
+- Ship weapons: gunner attack vs threat AC (off-guard and MAP aware), crit doubling, damage applied through shields.
+- Threat routines: scripted steps (checks vs ship DCs, strikes, basic-save hazards with "avoided" flags).
+- NPC crew member (e.g., a ship VI with a flat skill bonus) can fill roles.
+- New victory mode: reduce threats to 0 HP *or* reach a points target; custom points name (e.g., Escape Points);
+  automatic victory announcement.
+- Comms contacts registry (`/comm <contact-id> | text` resolves names and channels); infosphere headline sets.
+- `escapeHTML` no longer depends on the DOM.
+- Tests: engine simulation under node:test with Foundry stubs.
+
 ## 0.1.0 — 2026-10-02
 
 Initial scaffold targeting Foundry v14 + sf2e 1.5.x.

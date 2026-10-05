@@ -54,6 +54,7 @@ export function registerSettings(apps) {
     hidden("ledger", Array, [], () => apps.LedgerApp.refresh());
     hidden("infosphereHeadlines", Array, []);
     hidden("infosphereLast", Number, 0);
+    hidden("infosphereSet", String, "");
 
     /* Menus */
     game.settings.registerMenu(MODULE_ID, "starshipMenu", {

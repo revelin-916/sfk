@@ -9,7 +9,7 @@ SFK complements the system rather than replacing it. Each feature targets a gap 
 | Foundry VTT | v14 (developed against 14.368) |
 | Game system | Starfinder Second Edition (`sf2e`) ≥ 1.5.0 |
 
-> **Status: v0.1.0, untested in a live world.** The code is linted and the rules math is unit-tested, but nothing has been run inside Foundry yet. Test it in a copy of your world first, and report anything that throws to the browser console (F12) with the `SFK |` prefix.
+> **Status: v0.2.0, untested in a live world.** The code is linted and the rules math is unit-tested, but nothing has been run inside Foundry yet. Test it in a copy of your world first, and report anything that throws to the browser console (F12) with the `SFK |` prefix.
 
 ---
 
@@ -41,6 +41,13 @@ The sf2e system has no starship support. SFK adds a **Starship Scene** tracker m
 - **Next Round:** resolves persistent damage, each with its own flat check (DC 15, or DC 10 with Assisted Recovery). Then shields regenerate and the round advances.
 - **Victory tracking:** reduce threats to 0 HP, collect Victory Points, or survive N rounds.
 
+**Scripted scenes (v0.2):** presets from content packs come with structured data:
+- **Starship actions** roll the assigned crew member's skill against the DC through the system's check pipeline, then apply the outcome: points, repairs, clearing persistent damage, or flags such as "asteroids avoided".
+- **Ship weapons** roll the gunner's attack against the threat's AC, accounting for off-guard and MAP. Critical hits double damage, and damage goes through shields first.
+- **Threat routines** run with one click: scans against the ship's DCs, strikes, and basic-save hazards.
+- **An NPC crew member** (such as a ship VI with a flat bonus) can fill a role.
+- **Export and import** save any scene as a JSON file.
+
 Default roles are Captain, Engineer, Gunner, Magic Officer, Pilot, and Science Officer. **The default skills on those roles are placeholders**, so set each role's skill from your scene's stat block.
 
 ### Immersion
@@ -60,6 +67,20 @@ Default roles are Captain, Engineer, Gunner, Magic Officer, Pilot, and Science O
 - **Faction standing:** party-wide reputation with tiers you can edit, chat announcements, and factions you can hide from players.
 
 ---
+
+## Content packs
+
+Adventure-specific content ships as separate modules that register with SFK when the world loads:
+
+```js
+Hooks.once("sfk.registerContent", (sfk) => {
+    sfk.starship.registerPreset({ id, name, group, setup: [...], scene: { ship, threats, victory, ... } });
+    sfk.comms.registerContacts([{ id: "vi", name: "Ship VI", channel: "ai", group: "Crew" }]);
+    sfk.infosphere.registerHeadlineSet("my-set", { label: "My Feed", lines: [...] });
+});
+```
+
+See `tests/fixtures/sample-preset.mjs` for the full preset shape. A pack that copies stats from a published adventure is for **personal use only** and must stay out of public repositories.
 
 ## Install (development)
 

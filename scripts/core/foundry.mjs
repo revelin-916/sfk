@@ -27,10 +27,11 @@ export function warn(...args) {
     console.warn("SFK |", ...args);
 }
 
+const HTML_ESCAPES = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
+
+/** Escape text for HTML content and attribute values. */
 export function escapeHTML(text) {
-    const div = document.createElement("div");
-    div.textContent = String(text ?? "");
-    return div.innerHTML;
+    return String(text ?? "").replace(/[&<>"']/g, (c) => HTML_ESCAPES[c]);
 }
 
 export const wait = (ms) => new Promise((r) => setTimeout(r, ms));

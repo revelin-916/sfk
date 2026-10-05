@@ -1,7 +1,11 @@
 {
   "SFK": {
-    "Common": { "Save": "Save" },
-    "Menu": { "Open": "Open" },
+    "Common": {
+      "Save": "Save"
+    },
+    "Menu": {
+      "Open": "Open"
+    },
     "Notify": {
       "GMOnly": "Only a GM can do that.",
       "NotOwner": "You don't own that."
@@ -51,9 +55,18 @@
       "Empty": "{ammo} is <b>empty</b>. Reload before your next shot."
     },
     "Attune": {
-      "photon": { "Title": "Photon Attunement", "Body": "{name} blazes with stellar heat — plasma coils along every manifestation." },
-      "graviton": { "Title": "Graviton Attunement", "Body": "Light bends around {name} as the weight of a dying star settles in." },
-      "unattuned": { "Title": "Unattuned", "Body": "{name}'s manifestations gutter out as the stellar cycle resets." }
+      "photon": {
+        "Title": "Photon Attunement",
+        "Body": "{name} blazes with stellar heat — plasma coils along every manifestation."
+      },
+      "graviton": {
+        "Title": "Graviton Attunement",
+        "Body": "Light bends around {name} as the weight of a dying star settles in."
+      },
+      "unattuned": {
+        "Title": "Unattuned",
+        "Body": "{name}'s manifestations gutter out as the stellar cycle resets."
+      }
     },
     "Ship": {
       "AppTitle": "Starship Scene",
@@ -109,7 +122,31 @@
       "PickRoles": "Each PC picks a role at the start of their turn and holds it until the next round.",
       "Initiative": "Role Initiative",
       "NoCrew": "No crew assigned to roles.",
-      "NoSkill": "Skill '{skill}' not found on that character."
+      "NoSkill": "Skill '{skill}' not found on that character.",
+      "VictoryHPOrVP": "Reduce threats to 0 HP or reach the point target",
+      "VPLabel": "Points name",
+      "SceneMod": "Scene modifier (all crew checks)",
+      "SceneModHint": "e.g., Ship took minor damage on approach",
+      "ModType": "Type",
+      "Objectives": "Optional objectives",
+      "Rewards": "Rewards (XP, notes)",
+      "LoadPreset": "Load Preset",
+      "Preset": "Preset",
+      "PresetHint": "Replaces the current scene. Crew assignments carry over by role name.",
+      "Load": "Load",
+      "Setup": "Scene Setup",
+      "Export": "Export",
+      "Import": "Import",
+      "ImportHint": "Choose a scene JSON file exported from SFK.",
+      "ImportBad": "That file isn't a valid SFK starship scene.",
+      "NoPresets": "No starship presets are registered. Install a content pack such as sfk-ggw.",
+      "PresetMissing": "That preset isn't registered.",
+      "VictoryTitle": "Victory Condition Met",
+      "VictoryReason": {
+        "hp": "All threats have been reduced to 0 HP.",
+        "vp": "{label} target reached.",
+        "rounds": "The crew survived the required rounds."
+      }
     },
     "Comms": {
       "Incoming": "Incoming Transmission",
@@ -120,13 +157,19 @@
       "From": "From",
       "Message": "Message",
       "Send": "Transmit",
-      "GMOnly": "Only the GM can broadcast priority alerts."
+      "GMOnly": "Only the GM can broadcast priority alerts.",
+      "Contact": "Contact",
+      "FromHint": "Name, or leave blank to use the contact"
     },
     "Info": {
       "Feed": "Infosphere Feed",
       "EditTitle": "Infosphere Headlines",
       "EditHint": "One headline per line. Leave empty to restore the defaults.",
-      "Saved": "Saved {n} headlines."
+      "Saved": "Saved {n} headlines.",
+      "CustomSet": "Custom / default headlines",
+      "ChooseSet": "Choose Infosphere Feed",
+      "Set": "Feed",
+      "SetChosen": "Infosphere feed: {label}"
     },
     "Ledger": {
       "Title": "Credits Ledger",
@@ -166,21 +209,92 @@
       "TierChange": "Standing is now: {tier}"
     },
     "Settings": {
-      "Choice": { "Auto": "Automatic", "Prompt": "Prompt with a button", "Off": "Off" },
-      "volleyAmmo": { "Name": "Area Fire / Auto-Fire ammunition", "Hint": "Spend ammunition for area attacks (the system doesn't). Area Fire uses the weapon's expend; Auto-Fire spends 2 × creatures in the placed cone." },
-      "volleyAutoTarget": { "Name": "Target creatures in placed areas", "Hint": "When you place an Area Fire / Auto-Fire area, target every creature inside it." },
-      "suppressionAuto": { "Name": "Apply Suppressing Fire", "Hint": "Soldiers with Suppressing Fire: enemies who fail the save against their area attack become suppressed until the start of the soldier's next turn." },
-      "glitchingAuto": { "Name": "Glitching start-of-turn check", "Hint": "Roll the DC 5 + value flat check when a glitching combatant's turn starts, and apply the outcome." },
-      "untetheredDrift": { "Name": "Untethered drift reminder", "Hint": "At end of turn, give the GM a one-click 5-foot drift in the token's last movement direction." },
-      "ammoWarnPct": { "Name": "Low-ammo warning threshold (%)", "Hint": "Warn owners when a magazine or battery falls to this percentage. Always warns when empty. 0 = empty only." },
-      "ammoWarnSound": { "Name": "Low-ammo sound", "Hint": "Optional sound for low/empty ammunition warnings (this client)." },
-      "attunementLight": { "Name": "Solarian attunement lighting", "Hint": "Change a solarian's token light when they become photon- or graviton-attuned; restore it when unattuned." },
-      "attunementChat": { "Name": "Solarian attunement chat flourish", "Hint": "Post a short narrative card when a solarian's attunement changes." },
-      "commsSound": { "Name": "Transmission sound", "Hint": "Optional sound for /comm and /ai transmissions." },
-      "alertSound": { "Name": "Priority alert sound", "Hint": "Optional sound for /alert broadcasts." },
-      "infosphereEnabled": { "Name": "Infosphere feed", "Hint": "Broadcast a random infosphere headline as in-world time passes." },
-      "infosphereInterval": { "Name": "Infosphere interval (hours)", "Hint": "In-world hours between headlines." },
-      "ledgerEnabled": { "Name": "Credits ledger", "Hint": "Log every change to party characters' credits and UPBs." }
+      "Choice": {
+        "Auto": "Automatic",
+        "Prompt": "Prompt with a button",
+        "Off": "Off"
+      },
+      "volleyAmmo": {
+        "Name": "Area Fire / Auto-Fire ammunition",
+        "Hint": "Spend ammunition for area attacks (the system doesn't). Area Fire uses the weapon's expend; Auto-Fire spends 2 × creatures in the placed cone."
+      },
+      "volleyAutoTarget": {
+        "Name": "Target creatures in placed areas",
+        "Hint": "When you place an Area Fire / Auto-Fire area, target every creature inside it."
+      },
+      "suppressionAuto": {
+        "Name": "Apply Suppressing Fire",
+        "Hint": "Soldiers with Suppressing Fire: enemies who fail the save against their area attack become suppressed until the start of the soldier's next turn."
+      },
+      "glitchingAuto": {
+        "Name": "Glitching start-of-turn check",
+        "Hint": "Roll the DC 5 + value flat check when a glitching combatant's turn starts, and apply the outcome."
+      },
+      "untetheredDrift": {
+        "Name": "Untethered drift reminder",
+        "Hint": "At end of turn, give the GM a one-click 5-foot drift in the token's last movement direction."
+      },
+      "ammoWarnPct": {
+        "Name": "Low-ammo warning threshold (%)",
+        "Hint": "Warn owners when a magazine or battery falls to this percentage. Always warns when empty. 0 = empty only."
+      },
+      "ammoWarnSound": {
+        "Name": "Low-ammo sound",
+        "Hint": "Optional sound for low/empty ammunition warnings (this client)."
+      },
+      "attunementLight": {
+        "Name": "Solarian attunement lighting",
+        "Hint": "Change a solarian's token light when they become photon- or graviton-attuned; restore it when unattuned."
+      },
+      "attunementChat": {
+        "Name": "Solarian attunement chat flourish",
+        "Hint": "Post a short narrative card when a solarian's attunement changes."
+      },
+      "commsSound": {
+        "Name": "Transmission sound",
+        "Hint": "Optional sound for /comm and /ai transmissions."
+      },
+      "alertSound": {
+        "Name": "Priority alert sound",
+        "Hint": "Optional sound for /alert broadcasts."
+      },
+      "infosphereEnabled": {
+        "Name": "Infosphere feed",
+        "Hint": "Broadcast a random infosphere headline as in-world time passes."
+      },
+      "infosphereInterval": {
+        "Name": "Infosphere interval (hours)",
+        "Hint": "In-world hours between headlines."
+      },
+      "ledgerEnabled": {
+        "Name": "Credits ledger",
+        "Hint": "Log every change to party characters' credits and UPBs."
+      }
+    },
+    "Engine": {
+      "PersistentCleared": "Persistent damage cleared.",
+      "FlagSet": "Effect active: {flag}.",
+      "OffGuard": "{name} is off-guard until the end of the round.",
+      "OffGuardShort": "off-guard",
+      "ToggleOffGuard": "Toggle off-guard (–2 AC until end of round)",
+      "NoRoleMatch": "No crew member holds the {role} role — choose anyone.",
+      "Attempt": "Attempt",
+      "NoTargets": "No threats with Hit Points to target.",
+      "Gunner": "Gunner",
+      "Target": "Target",
+      "AttackBonus": "Gunner's attack bonus",
+      "MAP": "Multiple attack penalty",
+      "Fire": "Fire",
+      "Doubled": "critical — doubled",
+      "BasicSave": "basic {save}",
+      "Avoided": "unaffected this time.",
+      "NoDamage": "no damage",
+      "NoRoutine": "That threat has no scripted routine.",
+      "RoutineTitle": "{name}: Routine",
+      "Weapons": "Weapons",
+      "Actions": "Starship Actions",
+      "RunRoutine": "Run routine",
+      "Hazard": "Environmental threat — no hull to target."
     }
   }
 }

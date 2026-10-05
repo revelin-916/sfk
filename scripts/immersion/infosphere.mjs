@@ -27,9 +27,34 @@ export const DEFAULT_HEADLINES = [
     "Freighter crew rescued after 19 days adrift; captain credits 'very stubborn engineer.'",
 ];
 
+const sets = new Map();
+
+/** Content modules register themed headline sets; the GM picks the active one. */
+export function registerHeadlineSet(id, { label, lines }) {
+    if (!id || !Array.isArray(lines)) return;
+    sets.set(id, { id, label: label ?? id, lines });
+}
+
 export function headlines() {
+    const active = sets.get(setting("infosphereSet"));
+    if (active?.lines?.length) return active.lines;
     const list = setting("infosphereHeadlines");
     return Array.isArray(list) && list.length ? list : DEFAULT_HEADLINES;
+}
+
+export async function chooseSet() {
+    if (!game.user.isGM) return;
+    const current = setting("infosphereSet");
+    const opts = [`<option value="">${L("Info.CustomSet")}</option>`]
+        .concat([...sets.values()].map((s) => `<option value="${escapeHTML(s.id)}" ${s.id === current ? "selected" : ""}>${escapeHTML(s.label)} (${s.lines.length})</option>`))
+        .join("");
+    const result = await DialogV2.input({
+        window: { title: L("Info.ChooseSet"), icon: "fa-solid fa-newspaper" },
+        content: `<div class="form-group"><label>${L("Info.Set")}</label><select name="set">${opts}</select></div>`,
+    });
+    if (!result) return;
+    await setSetting("infosphereSet", result.set ?? "");
+    ui.notifications.info(L("Info.SetChosen", { label: sets.get(result.set)?.label ?? L("Info.CustomSet") }));
 }
 
 export async function broadcast(text) {

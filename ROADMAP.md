@@ -7,10 +7,10 @@
 - Optional Sequencer/JB2A hooks for Area Fire, Auto-Fire, solar weapon
 
 ## 0.3 — Starship scenes
-- Scene presets saved as Journal pages (import/export stat blocks)
-- Threat routine runner: per-round routine reminders and quick-roll buttons
-- Player-facing role picker (each PC picks role at turn start from their own client)
-- Starship HUD on the combat tracker
+- ~~Scene presets, import/export, threat routine runner~~ (done in 0.2)
+- Player-facing role picker and action buttons (players roll their own starship actions via GM socket relay)
+- Starship HUD on the combat tracker; auto-run threat routines on the threat's turn
+- In-app editor for structured actions/steps (currently via presets or JSON import)
 
 ## 0.4 — Living galaxy (immersion)
 - Drift travel tracker tied to the world clock (flavor events table, arrival announcements)

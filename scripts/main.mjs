@@ -15,9 +15,10 @@ import { initAttunement, getAttunement } from "./combat/attunement.mjs";
 
 import { StarshipSceneApp } from "./starship/app.mjs";
 import * as starship from "./starship/state.mjs";
+import * as engine from "./starship/engine.mjs";
 
-import { initComms, send as commsSend, prompt as commsPrompt } from "./immersion/comms.mjs";
-import { initInfosphere, broadcast, editHeadlines } from "./immersion/infosphere.mjs";
+import { initComms, send as commsSend, prompt as commsPrompt, registerContacts, listContacts } from "./immersion/comms.mjs";
+import { initInfosphere, broadcast, editHeadlines, registerHeadlineSet, chooseSet } from "./immersion/infosphere.mjs";
 
 import { initLedger, LedgerApp, wallet } from "./economy/ledger.mjs";
 import { payout, payoutDialog } from "./economy/payout.mjs";
@@ -33,9 +34,18 @@ const api = {
         nextRound: starship.nextRound,
         rollInitiative: starship.rollRoleInitiative,
         roleCheck: starship.roleCheck,
+        registerPreset: starship.registerPreset,
+        listPresets: starship.listPresets,
+        loadPreset: starship.loadPreset,
+        presetDialog: () => StarshipSceneApp.presetDialog(),
+        exportScene: starship.exportScene,
+        importScene: starship.importScene,
+        runAction: engine.runAction,
+        fireWeapon: engine.fireWeapon,
+        runRoutine: engine.runRoutine,
     },
-    comms: { send: commsSend, prompt: commsPrompt },
-    infosphere: { broadcast, editHeadlines },
+    comms: { send: commsSend, prompt: commsPrompt, registerContacts, listContacts },
+    infosphere: { broadcast, editHeadlines, registerHeadlineSet, chooseSet },
     economy: {
         payout,
         payoutDialog,
@@ -73,5 +83,7 @@ Hooks.once("init", () => {
 
 Hooks.once("ready", () => {
     if (game.system.id !== SYSTEM_ID) return;
-    log(`v${api.version} ready`);
+    // Content modules (adventure packs) register presets, headline sets, and contacts here.
+    Hooks.callAll("sfk.registerContent", api);
+    log(`v${api.version} ready — ${starship.listPresets().length} starship preset(s), ${listContacts().length} contact(s)`);
 });

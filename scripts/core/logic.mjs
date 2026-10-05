@@ -130,3 +130,57 @@ export function parseCommsCommand(text) {
     const [from, ...rest] = body.split("|");
     return rest.length ? { channel, from: from.trim(), text: rest.join("|").trim() } : { channel, from: "", text: body.trim() };
 }
+
+/** Damage multiplier for a basic save by degree (0..3): crit fail ×2, fail ×1, success ½ (floored), crit success 0. */
+export function basicSaveDamage(total, degree) {
+    const t = Math.max(0, Math.trunc(total));
+    return [t * 2, t, Math.floor(t / 2), 0][degree] ?? t;
+}
+
+/** Strike damage by degree: crit ×2, hit ×1, otherwise 0. */
+export function strikeDamage(total, degree) {
+    const t = Math.max(0, Math.trunc(total));
+    return degree === 3 ? t * 2 : degree === 2 ? t : 0;
+}
+
+/**
+ * Does a crew role name satisfy an action's role requirement?
+ * "Gunner 2" satisfies "gunner"; "Magic Officer" satisfies ["magic officer", "science officer"].
+ */
+export function roleMatches(roleName, required) {
+    const name = String(roleName ?? "").toLowerCase().trim();
+    const list = (Array.isArray(required) ? required : [required]).map((r) => String(r ?? "").toLowerCase().trim()).filter(Boolean);
+    if (!list.length) return true;
+    return list.some((r) => name === r || name.startsWith(`${r} `) || name.startsWith(`${r}(`));
+}
+
+/** Resolve a DC reference against a craft: a number, or "ac" / "fort" / "ref" / "will" (save DC = 10 + bonus). */
+export function resolveDC(ref, craft) {
+    if (typeof ref === "number") return ref;
+    const key = String(ref ?? "").toLowerCase();
+    if (key === "ac") return Number(craft?.ac) || 10;
+    if (["fort", "ref", "will"].includes(key)) return 10 + (Number(craft?.[key]) || 0);
+    const n = Number(ref);
+    return Number.isFinite(n) ? n : 10;
+}
+
+/** Victory check for a starship scene. Returns null or a reason key. */
+export function victoryReached(state) {
+    const v = state?.victory ?? {};
+    const threatsDown = (state?.threats ?? []).filter((t) => (t.hp?.max ?? 0) > 0).every((t) => t.hp.value <= 0);
+    const hasHPThreats = (state?.threats ?? []).some((t) => (t.hp?.max ?? 0) > 0);
+    const vpDone = (v.vp ?? 0) >= (v.vpTarget ?? Infinity);
+    const roundsDone = (state?.round ?? 0) > (v.roundsTarget ?? Infinity);
+    switch (v.mode) {
+        case "hp":
+            return hasHPThreats && threatsDown ? "hp" : null;
+        case "vp":
+            return vpDone ? "vp" : null;
+        case "hpOrVp":
+            return hasHPThreats && threatsDown ? "hp" : vpDone ? "vp" : null;
+        case "rounds":
+            return roundsDone ? "rounds" : null;
+        default:
+            return null;
+    }
+}

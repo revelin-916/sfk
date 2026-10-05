@@ -160,3 +160,14 @@
 .sfk-tier { padding: 0.1em 0.5em; border: 1px solid var(--sfk-econ); border-radius: 3px; color: var(--sfk-econ); font-size: 0.85em; }
 .sfk-rep { font-weight: 700; font-size: 1.2em; min-width: 2em; text-align: center; }
 .sfk-checklist { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.25em; }
+
+/* v0.2 — starship engine */
+.sfk-chip-row { display: flex; flex-wrap: wrap; gap: 0.3em; }
+.sfk-chip { flex: 0 0 auto; width: auto; padding: 0.1em 0.6em; border-radius: 999px; font-size: 0.85em; line-height: 1.8; }
+.sfk-chip-alert { border-color: rgba(255, 77, 94, 0.6) !important; }
+.sfk-action-list { display: flex; flex-direction: column; gap: 0.3em; }
+.sfk-action { display: grid; grid-template-columns: auto auto 1fr; gap: 0.4em; align-items: start; font-size: 0.85em; }
+.sfk-action-text { color: var(--sfk-dim); }
+.sfk-badge { font-size: 0.7em; padding: 0.1em 0.45em; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.05em; }
+.sfk-badge-warn { border: 1px solid var(--sfk-warn); color: var(--sfk-warn); }
+.sfk-card-header .sfk-avatar { width: 22px; height: 22px; border: 1px solid var(--sfk-c); border-radius: 50%; object-fit: cover; }

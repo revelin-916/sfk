@@ -1,6 +1,6 @@
 {
   "name": "sfk",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "description": "SFK — Starfinder Foundry Kit (Foundry VTT module for the sf2e system)",
