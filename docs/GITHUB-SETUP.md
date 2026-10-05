@@ -18,14 +18,14 @@ Unzip `sfk-v0.2.0-repo.zip` into your Foundry data folder so the result is:
 To find FoundryData, go to Foundry's **Setup → Configuration → User Data Path**. The zip already contains the git history (`.git`), so the folder is a ready-made repo. Foundry ignores the extra dev files.
 
 ## 3. Point the manifest at your account
-In `module.json`, replace all 4 occurrences of `revelin-916` with your GitHub username.
+Already done: `module.json` points at `github.com/revelin-916/sfk`. Skip this step.
 
 ## 4. Push
 Open a terminal in that folder (in Explorer, Shift+right-click → *Open in Terminal*):
 ```powershell
 git add module.json
 git commit -m "Set GitHub URLs"
-git remote add origin https://github.com/<you>/sfk.git
+git remote add origin https://github.com/revelin-916/sfk.git
 git push -u origin main
 ```
 The first push opens a browser window to sign you in.
@@ -43,7 +43,7 @@ Publishing starts the GitHub Action. Watch it in the **Actions** tab; it takes a
 ## 7. Install from the manifest (other worlds, other people)
 In Foundry, go to **Add-on Modules → Install Module** and paste this into Manifest URL:
 ```
-https://github.com/<you>/sfk/releases/latest/download/module.json
+https://github.com/revelin-916/sfk/releases/latest/download/module.json
 ```
 You don't need this on the machine where you develop, because the folder from step 2 is already installed.
 

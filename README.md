@@ -119,7 +119,7 @@ npm run package       # build packs + dist/sfk.zip
 ```
 
 **Releasing:**
-1. Replace `revelin-916` in `module.json`.
+1. `module.json` already points at `github.com/revelin-916/sfk`; change it if you fork.
 2. Push the repo.
 3. Publish a GitHub release tagged `vX.Y.Z`.
 
